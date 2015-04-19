@@ -4,6 +4,8 @@ from flask import Flask, request, session, g, redirect, url_for, \
      abort, render_template, flash
 from contextlib import closing
 
+from scheduler import scheduler
+
 # configuration
 DATABASE = 'database/flaskr.db'
 DEBUG = True
@@ -70,5 +72,10 @@ def logout():
     flash('You were logged out')
     return redirect(url_for('show_entries'))
 
+def test():
+    print "hello"
+
 if __name__ == '__main__':
+    myThread = scheduler(interval=10, closure=test)
+    myThread.start()
     app.run(host='0.0.0.0')
