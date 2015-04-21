@@ -76,6 +76,6 @@ def test():
     print "hello"
 
 if __name__ == '__main__':
-    myThread = scheduler(interval=10, closure=test)
+    myThread = scheduler(interval=30, closure=test)
     myThread.start()
     app.run(host='0.0.0.0')

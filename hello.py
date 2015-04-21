@@ -18,9 +18,6 @@ app.config.from_object(__name__)
 def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
 
-def foo():
-
-
 @app.before_request
 def before_request():
     g.db = connect_db()
@@ -33,8 +30,8 @@ def teardown_request(exception):
 
 @app.route('/')
 def show_entries():
-    cur = g.db.execute('select username, user_id from vine_page_test')
-    entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
+    cur = g.db.execute('select username, user_id, post_count, follower_count, following_count, loop_count, like_count from vine_page_test')
+    entries = [dict(username=row[0], user_id=row[1], post_count=row[2], follower_count=row[3], following_count=row[4], loop_count=row[5], like_count=row[6]) for row in cur.fetchall()]
     return render_template('show_entries.html', entries=entries)
 
 @app.route('/add', methods=['POST'])

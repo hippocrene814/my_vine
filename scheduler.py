@@ -15,3 +15,4 @@ class scheduler(Thread):
             else:
                 self.closure(self.arg)
             time.sleep(self.interval)
+
