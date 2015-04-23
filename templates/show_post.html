@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+  <ul class=entries>
+  {% for post in posts %}
+    <li><h2>USER_NAME: {{ post.username }}</h2>
+    CREATED: {{ post.created|safe }}<br>
+    LIKES: {{ post.likes }}<br>
+    REPOSTS: {{ post.reposts }}<br>
+    LOOPS: {{ post.loops }}<br>
+    COMMENTS: {{ post.comments }}<br>
+    DESCRIPTION: {{ post.description }}<br>
+    VIDEO_LINK: {{ post.video_link }}<br>
+    REVINE_CHECK: {{ post.revine_check }}<br>
+    REVINED_USER: {{ post.revined_user }}<br>
+  {% else %}
+    <li><em>Unbelievable.  No posts here so far</em>
+  {% endfor %}
+  </ul>
+  {% endif %}
+  <h2> That's all. </h2>
+{% endblock %}

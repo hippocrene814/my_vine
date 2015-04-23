@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+  <ul class=entries>
+  {% for profile in profiles %}
+    <li><h2>USER_NAME: {{ profile.username }}</h2>
+    USER_ID: {{ profile.user_id|safe }}<br>
+    POST_COUNT: {{ profile.post_count }}<br>
+    FOLLOWER_COUNT: {{ profile.follower_count }}<br>
+    FOLLOWING_COUNT: {{ profile.following_count }}<br>
+    LOOP_COUNT: {{ profile.loop_count }}<br>
+    LIKE_COUNT: {{ profile.like_count }}<br>
+  {% else %}
+    <li><em>Unbelievable.  No profiles here so far</em>
+  {% endfor %}
+  </ul>
+  {% endif %}
+  <h2> That's all. </h2>
+{% endblock %}

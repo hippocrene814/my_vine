@@ -64,5 +64,17 @@ def logout():
     flash('You were logged out')
     return redirect(url_for('show_entries'))
 
+@app.route('/profile')
+def show_profile():
+    cur = g.db.execute('SELECT username, user_id, post_count, follower_count, following_count, loop_count, like_count FROM vine_page_test')
+    profiles = [dict(username=row[0], user_id=row[1], post_count=row[2], follower_count=row[3], following_count=row[4], loop_count=row[5], like_count=row[6]) for row in cur.fetchall()]
+    return render_template('show_profile.html', profiles=profiles)
+
+@app.route('/post')
+def show_post():
+    cur = g.db.execute('SELECT username, created, likes, reposts, loops, comments, description, video_link, revine_check, revined_user FROM vine_post_test')
+    posts = [dict(username=row[0], created=row[1], likes=row[2], reposts=row[3], loops=row[4], comments=row[5], description=row[6], video_link=row[7], revine_check=row[8], revined_user=row[9]) for row in cur.fetchall()]
+    return render_template('show_post.html', posts=posts)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
