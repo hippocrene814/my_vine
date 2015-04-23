@@ -28,11 +28,15 @@ def teardown_request(exception):
     if db is not None:
         db.close()
 
+# @app.route('/')
+# def show_entries():
+#     cur = g.db.execute('select username, user_id, post_count, follower_count, following_count, loop_count, like_count from vine_page_test')
+#     entries = [dict(username=row[0], user_id=row[1], post_count=row[2], follower_count=row[3], following_count=row[4], loop_count=row[5], like_count=row[6]) for row in cur.fetchall()]
+#     return render_template('show_entries.html', entries=entries)
+
 @app.route('/')
-def show_entries():
-    cur = g.db.execute('select username, user_id, post_count, follower_count, following_count, loop_count, like_count from vine_page_test')
-    entries = [dict(username=row[0], user_id=row[1], post_count=row[2], follower_count=row[3], following_count=row[4], loop_count=row[5], like_count=row[6]) for row in cur.fetchall()]
-    return render_template('show_entries.html', entries=entries)
+def show_main():
+    return render_template('main_page.html')
 
 @app.route('/add', methods=['POST'])
 def add_entry():

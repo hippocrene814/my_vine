@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block body %}
+    <h2>Main Page</h2>
+    {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+    <br>
+    <a href="{{ url_for('show_profile') }}">Vine Page Test</a>
+    <br>
+    <a href="{{ url_for('show_post') }}">Vine Post Test</a>
+    <br>
+{% endblock %}
