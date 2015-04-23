@@ -95,7 +95,7 @@ def connection(user_data_list, post_data_list):
         following_count = user_data['following_count']
         loop_count = user_data['loop_count']
         like_count = user_data['like_count']
-        db.execute('insert into vine_page_test (username, date, user_id, post_count, follower_count, following_count, loop_count, like_count) values (?, ?, ?, ?, ?, ?, ?, ?)', [username, date, user_id, post_count, follower_count, following_count, loop_count, like_count])
+        db.execute('INSERT INTO vine_page_test (username, date, user_id, post_count, follower_count, following_count, loop_count, like_count) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [username, date, user_id, post_count, follower_count, following_count, loop_count, like_count])
         db.commit()
 
     for post_data in post_data_list:
@@ -109,7 +109,8 @@ def connection(user_data_list, post_data_list):
         video_link = post_data['video_link']
         revine_check = post_data['revine_check']
         revined_user = post_data['revined_user']
-        db.execute('insert into vine_post_test (username, created, likes, reposts, loops, comments, description, video_link, revine_check, revined_user) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [username2, created, likes, reposts, loops, comments, description, video_link, revine_check, revined_user])
+        # db.execute('insert into vine_post_test (username, created, likes, reposts, loops, comments, description, video_link, revine_check, revined_user) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [username2, created, likes, reposts, loops, comments, description, video_link, revine_check, revined_user])
+        db.execute('INSERT OR REPLACE INTO vine_post_test (username, created, likes, reposts, loops, comments, description, video_link, revine_check, revined_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [username2, created, likes, reposts, loops, comments, description, video_link, revine_check, revined_user])
         db.commit()
 
     # close the connect
