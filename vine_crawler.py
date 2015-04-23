@@ -8,21 +8,6 @@ import urllib2
 import json
 import time
 
-# Get JSON file for specific Vine account page from internet which contains all the account information
-
-def getJSON(user_name):
-    try:
-        response = urllib2.urlopen('https://vine.co/api/users/profiles/' + user_name)
-        res = json.load(response)
-    except urllib2.HTTPError as e:
-        print 'The server couldn\'t fulfill the request.'
-        print 'Error code: ', e.code
-    except urllib2.URLError as e:
-        print 'We failed to reach a server.'
-        print 'Reason: ', e.reason
-    return res
-
-
 # Get Vine account profile information from previous JSON file
 
 def get_user_data(res):
@@ -35,11 +20,11 @@ def get_user_data(res):
     user_data['following_count'] = (res['data']['followingCount'])
     user_data['loop_count'] = (res['data']['loopCount'])
     user_data['like_count'] = (res['data']['likeCount'])
-    #print user_data
+    print user_data
     #print type(user_data)
     user_data_list = []
     user_data_list.append(user_data)
-    #print user_data_list
+    print user_data_list
     return user_data_list
 
 # Get each post information for a specific Vine account from timeline JSON file
@@ -52,15 +37,8 @@ def get_post_data(res):
     user_name = res['data']['username'].encode('utf-8')
     #print user_name
 
-    try:
-        response2 = urllib2.urlopen('https://vine.co/api/timelines/users/' + str(user_id) + '?size=' + str(post_count))
-    except urllib2.HTTPError as e:
-        print 'The server couldn\'t fulfill the request.'
-        print 'Error code: ', e.code
-    except urllib2.URLError as e:
-        print 'We failed to reach a server.'
-        print 'Reason: ', e.reason
-
+    new_url = 'https://vine.co/api/timelines/users/' + str(user_id) + '?size=' + str(post_count)
+    response2 = urllib2.urlopen(new_url)
 
     json_post_data = json.load(response2)
 
@@ -159,17 +137,13 @@ def connection(user_data_list,post_data_list):
 
 
 if __name__ == "__main__":
-    user_name = "vanity/kf"     # Insert the specific brand name here
-    # res = getJSON(user_name)
-    # user_data_list = get_user_data(res)
-    # post_data_list = get_post_data(res)
-    # connection(user_data_list,post_data_list)
+    user_name = "vanity/kfc"     # Insert the specific brand name here
     try:
         response = urllib2.urlopen('https://vine.co/api/users/profiles/' + user_name)
         res = json.load(response)
         user_data_list = get_user_data(res)
         post_data_list = get_post_data(res)
-        connection(user_data_list,post_data_list)
+        # connection(user_data_list,post_data_list)
     except urllib2.HTTPError as e:
         print 'The server couldn\'t fulfill the request.'
         print 'Error code: ', e.code

@@ -78,4 +78,5 @@ def test():
 if __name__ == '__main__':
     myThread = scheduler(interval=30, closure=test)
     myThread.start()
+    print "I am awake"
     app.run(host='0.0.0.0')
