@@ -10,11 +10,11 @@
         d3.select("body")
         .append("ul")
         .selectAll("li")
-        .data(data)
+        .data(data.results)
         .enter()
         .append("li")
         .text( function(d){
-            return d.name + ": " + d.status;
+            return d.username + ": " + d.follower_count;
             }
         );
     }
