@@ -1,8 +1,9 @@
 # all the imports
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, \
-     abort, render_template, flash
+     abort, render_template, flash, jsonify
 from contextlib import closing
+import logging
 
 # configuration
 DATABASE = 'database/flaskr.db'
@@ -67,6 +68,23 @@ def profile_query():
         profiles = [dict(username=row[0], user_id=row[1], post_count=row[2], follower_count=row[3], following_count=row[4], loop_count=row[5], like_count=row[6]) for row in cur.fetchall()]
         return render_template('show_profile.html', profiles=profiles)
     return render_template('show_profile_query.html', error=error)
+
+# create json file: /test0
+@app.route('/test0')
+def test0():
+    cur = g.db.execute('SELECT username, user_id, post_count, follower_count, following_count, loop_count, like_count FROM vine_page_test')
+    list = [dict(username=row[0], user_id=row[1], post_count=row[2], follower_count=row[3], following_count=row[4], loop_count=row[5], like_count=row[6]) for row in cur.fetchall()]
+    # jsonify will do for us all the work, returning the
+    # previous data structure in JSON
+    app.logger.info('informing')
+    resp = jsonify(results=list)
+    resp.status_code = 200
+    return resp
+
+# get json file and visualize it using d3
+@app.route('/test1')
+def test1():
+    return render_template('test1.html')
 
 @app.route('/post')
 def show_post():

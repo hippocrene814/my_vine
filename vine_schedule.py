@@ -1,7 +1,3 @@
-'''
-This script is writen by Bowei Zhang at 3/31/2015 for scraping vine data and
-put them into MySQL database
-'''
 import peewee
 import MySQLdb
 import urllib2

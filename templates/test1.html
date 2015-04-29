@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<HTML>
+
+<HEAD>
+  <META CHARSET="utf-8">
+  <SCRIPT SRC="http://d3js.org/d3.v3.min.js"></SCRIPT>
+  <SCRIPT>
+    function draw(data) {
+        "use strict";
+        d3.select("body")
+        .append("ul")
+        .selectAll("li")
+        .data(data)
+        .enter()
+        .append("li")
+        .text( function(d){
+            return d.name + ": " + d.status;
+            }
+        );
+    }
+  </SCRIPT>
+  <TITLE>MTA Data</TITLE>
+</HEAD>
+
+<BODY>
+  <H1>MTA Availability Data</H1>
+  <SCRIPT>
+    // d3.json("{{ url_for( 'static', filename='service_status.json') }}",draw);
+    d3.json("{{ url_for('test0') }}",draw);
+  </SCRIPT>
+</BODY>
+
+</HTML>
