@@ -86,6 +86,11 @@ def test0():
 def test1():
     return render_template('test1.html')
 
+# get json file and visualize it using d3
+@app.route('/test2')
+def test2():
+    return render_template('test2.html')
+
 @app.route('/post')
 def show_post():
     cur = g.db.execute('SELECT username, created, likes, reposts, loops, comments, description, video_link, revine_check, revined_user FROM vine_post_test')
