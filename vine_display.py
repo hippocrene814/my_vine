@@ -55,8 +55,8 @@ def logout():
 
 @app.route('/profile')
 def show_profile():
-    cur = g.db.execute('SELECT username, user_id, post_count, follower_count, following_count, loop_count, like_count FROM vine_page_test')
-    profiles = [dict(username=row[0], user_id=row[1], post_count=row[2], follower_count=row[3], following_count=row[4], loop_count=row[5], like_count=row[6]) for row in cur.fetchall()]
+    cur = g.db.execute('SELECT username, user_id, post_count, follower_count, following_count, loop_count, like_count, date FROM vine_page_test')
+    profiles = [dict(username=row[0], user_id=row[1], post_count=row[2], follower_count=row[3], following_count=row[4], loop_count=row[5], like_count=row[6], date=row[7]) for row in cur.fetchall()]
     return render_template('show_profile.html', profiles=profiles)
 
 @app.route('/profile_query', methods=['GET', 'POST'])
@@ -64,16 +64,16 @@ def profile_query():
     error = None
     if request.method == 'POST':
         profile_username = request.form['username']
-        cur = g.db.execute('SELECT username, user_id, post_count, follower_count, following_count, loop_count, like_count FROM vine_page_test WHERE username = ?', [profile_username])
-        profiles = [dict(username=row[0], user_id=row[1], post_count=row[2], follower_count=row[3], following_count=row[4], loop_count=row[5], like_count=row[6]) for row in cur.fetchall()]
+        cur = g.db.execute('SELECT username, user_id, post_count, follower_count, following_count, loop_count, like_count, date FROM vine_page_test WHERE username = ?', [profile_username])
+        profiles = [dict(username=row[0], user_id=row[1], post_count=row[2], follower_count=row[3], following_count=row[4], loop_count=row[5], like_count=row[6], date=row[7]) for row in cur.fetchall()]
         return render_template('show_profile.html', profiles=profiles)
     return render_template('show_profile_query.html', error=error)
 
 # create json file: /test0
 @app.route('/test0')
 def test0():
-    cur = g.db.execute('SELECT username, user_id, post_count, follower_count, following_count, loop_count, like_count FROM vine_page_test')
-    list = [dict(username=row[0], user_id=row[1], post_count=row[2], follower_count=row[3], following_count=row[4], loop_count=row[5], like_count=row[6]) for row in cur.fetchall()]
+    cur = g.db.execute('SELECT username, user_id, post_count, follower_count, following_count, loop_count, like_count, date FROM vine_page_test')
+    list = [dict(username=row[0], user_id=row[1], post_count=row[2], follower_count=row[3], following_count=row[4], loop_count=row[5], like_count=row[6], date=row[7]) for row in cur.fetchall()]
     # jsonify will do for us all the work, returning the
     # previous data structure in JSON
     # app.logger.info('informing')

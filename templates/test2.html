@@ -1,28 +1,41 @@
 <html>
   <head>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
       google.load("visualization", "1.1", {packages:["bar"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses', 'Profit'],
-          ['2014', 1000, 400, 200],
-          ['2015', 1170, 460, 250],
-          ['2016', 660, 1120, 300],
-          ['2017', 1030, 540, 350]
-        ]);
+        $.getJSON("{{ url_for('test0') }}", function(json) {
+            var j_results = json.results;
+            var rows = [];
+            for (var i = 0; i < j_results.length; i++) {
+              var row = [];
+              row.push(j_results[i].username);
+              row.push(j_results[i].follower_count);
+              row.push(j_results[i].loop_count);
+              row.push(j_results[i].like_count);
+              rows.push(row);
+            }
+            var dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('string', 'username');
+            dataTable.addColumn('number', 'follower_count');
+            dataTable.addColumn('number', 'loop_count');
+            dataTable.addColumn('number', 'like_count');
+            dataTable.addRows(rows);
 
-        var options = {
-          chart: {
-            title: 'Company Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-          }
-        };
+            var options = {
+              chart: {
+                title: 'Company Performance',
+                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+              }
+            };
 
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
-        chart.draw(data, options);
+            chart.draw(dataTable, options);
+        });
       }
     </script>
   </head>

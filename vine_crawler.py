@@ -118,7 +118,7 @@ def connection(user_data_list, post_data_list):
         db.close()
 
 if __name__ == "__main__":
-    user_name = "vanity/kfc"     # Insert the specific brand name here
+    user_name = "vanity/cocacola"     # Insert the specific brand name here
     print 'At ' + strftime("%Y-%m-%d %H:%M:%S", gmtime())
     try:
         response = urllib2.urlopen('https://vine.co/api/users/profiles/' + user_name)
